@@ -6,7 +6,7 @@ const AboutSSGPage = async () => {
   });
   const company = await response.json();
   return (
-    <div className="m-0">
+    <div className="flex flex-col items-center">
       <div>{company.name}</div>
       <div>{company.desctiption}</div>
       <img src={`${company.image}`} />

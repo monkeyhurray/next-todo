@@ -1,12 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import {
-  getTodo,
-  postTodo,
-  patchCancelTodo,
-  deleteTodo,
-} from "@/todoApi/todosApi";
+import { getTodo, postTodo } from "@/todoApi/todosApi";
 import TodoBar from "@/components/TodoBar";
 import DoneBar from "@/components/DoneBar";
 
@@ -24,21 +19,10 @@ const CSRPage = () => {
   } = useQuery({
     queryKey: ["todos"],
     queryFn: getTodo,
-    initialData: [],
   });
 
   const postMutation = useMutation({
     mutationFn: postTodo,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: deleteTodo,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
-  });
-
-  const patchCancelMutation = useMutation({
-    mutationFn: patchCancelTodo,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
   });
 
@@ -51,14 +35,6 @@ const CSRPage = () => {
     });
   };
 
-  const onClickCancelBtn = (id: string) => {
-    patchCancelMutation.mutate(id);
-  };
-
-  const onClickDeleteBtn = (id: string) => {
-    deleteMutation.mutate(id);
-  };
-
   if (isLoading) {
     return <div>로딩중...</div>;
   }
@@ -67,37 +43,44 @@ const CSRPage = () => {
   }
 
   return (
-    <>
-      &nbsp;
-      <input
-        placeholder="제목을 입력하세요"
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      &nbsp;
-      <input
-        placeholder="내용을 입력하세요"
-        type="text"
-        value={contents}
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <button className="my-3 border-2" onClick={onClickWriteBtn}>
-        완료
-      </button>
-      <button
-        className="my-3 border-2"
-        onClick={() => {
-          router.push("/report");
-        }}
-      >
-        [할일정보통계보러가기]
-      </button>
-      <h1>Todos...</h1>
+    <div className="ml-9 mt-6">
+      <div className=" flex justify-center items-center">
+        &nbsp;
+        <input
+          className="border border-black-700 rounded border-black w-100"
+          placeholder="제목을 입력하세요"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        &nbsp;
+        <input
+          className="border border-black-700 rounded border-black"
+          placeholder="내용을 입력하세요"
+          type="text"
+          value={contents}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <button
+          className="w-14 rounded my-3 border-2 mx-3 border-black"
+          onClick={onClickWriteBtn}
+        >
+          완료
+        </button>
+        <button
+          className="w-60 rounded my-3 border-2 border-black"
+          onClick={() => {
+            router.push("/report");
+          }}
+        >
+          [할일정보통계보러가기]
+        </button>
+      </div>
+      <h1 className="text-lg">Todos...</h1>
       <TodoBar todos={todos} />
-      <h1>Done</h1>
+      <h1 className="text-lg mt-5">Done</h1>
       <DoneBar todos={todos} />
-    </>
+    </div>
   );
 };
 

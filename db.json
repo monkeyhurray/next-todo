@@ -1,26 +1,26 @@
 {
   "companyInfo": {
     "name": "주식회사 코드몽키",
-    "desctiption": "우리모두 코드몽키가 아닌 개발자가 됩니다.",
+    "desctiption": "우리 모두 코드몽키가 아닌 개발자가 됩시다.",
     "image": "https://image.dongascience.com/Photo/2017/08/15023553014585.jpg"
   },
   "todos": [
     {
-      "id": "1",
-      "title": "커피 마시기",
-      "contents": "아메리카노 마시기",
+      "id": "4f1d",
+      "title": "공부하기",
+      "contents": "React",
+      "isDone": true
+    },
+    {
+      "id": "e00b",
+      "title": "공부하기 ",
+      "contents": "Node",
       "isDone": false
     },
     {
-      "id": "465f",
-      "title": "qwe",
-      "contents": "qwe",
-      "isDone": false
-    },
-    {
-      "id": "857e",
-      "title": "qwewq",
-      "contents": "qwedas",
+      "id": "6151",
+      "title": "공부하기",
+      "contents": "TypeScript",
       "isDone": true
     }
   ]
