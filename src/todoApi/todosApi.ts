@@ -16,6 +16,7 @@ const postTodo = async (newTodo: {
     isDone: false,
   });
 };
+
 const patchCancelTodo = async (id: string): Promise<void> => {
   await axios.patch(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${id}`, {
     isDone: false,

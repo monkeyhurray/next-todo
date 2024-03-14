@@ -6,21 +6,15 @@
   },
   "todos": [
     {
-      "id": "4f1d",
-      "title": "공부하기",
-      "contents": "React",
-      "isDone": true
-    },
-    {
       "id": "e00b",
       "title": "공부하기 ",
       "contents": "Node",
-      "isDone": false
+      "isDone": true
     },
     {
-      "id": "6151",
-      "title": "공부하기",
-      "contents": "TypeScript",
+      "id": "e24b",
+      "title": "금상호",
+      "contents": "굴비",
       "isDone": true
     }
   ]

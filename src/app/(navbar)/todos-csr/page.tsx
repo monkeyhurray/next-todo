@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { getTodo, postTodo } from "@/todoApi/todosApi";
 import TodoBar from "@/components/TodoBar";
 import DoneBar from "@/components/DoneBar";
-
+import { queryKey } from "@/queryKey/queryKey";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 const CSRPage = () => {
   const router = useRouter();
@@ -17,22 +17,31 @@ const CSRPage = () => {
     isError,
     data: todos,
   } = useQuery({
-    queryKey: ["todos"],
+    queryKey: [queryKey.todos],
     queryFn: getTodo,
   });
 
   const postMutation = useMutation({
     mutationFn: postTodo,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: [queryKey.todos],
+      }),
   });
 
   const onClickWriteBtn = () => {
-    setTitle("");
-    setContent("");
-    postMutation.mutate({
-      title,
-      contents,
-    });
+    if (title.trim() !== "" && contents.trim() !== "") {
+      setTitle("");
+      setContent("");
+      postMutation.mutate({
+        title,
+        contents,
+      });
+    } else {
+      setTitle("");
+      setContent("");
+      alert("빈칸이 있으면 안됩니다!!!!!");
+    }
   };
 
   if (isLoading) {
@@ -51,6 +60,7 @@ const CSRPage = () => {
           placeholder="제목을 입력하세요"
           type="text"
           value={title}
+          required
           onChange={(e) => setTitle(e.target.value)}
         />
         &nbsp;
@@ -59,6 +69,7 @@ const CSRPage = () => {
           placeholder="내용을 입력하세요"
           type="text"
           value={contents}
+          required
           onChange={(e) => setContent(e.target.value)}
         />
         <button
