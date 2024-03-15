@@ -1,4 +1,3 @@
-import { queryClient } from "@/app/provider";
 import { queryKey } from "@/queryKey/queryKey";
 import {
   deleteTodo,
@@ -6,9 +5,10 @@ import {
   patchCompleteTodo,
 } from "@/todoApi/todosApi";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useComplete = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: patchCompleteTodo,
     onSuccess: () =>
@@ -19,6 +19,8 @@ const useComplete = () => {
 };
 
 const useDelete = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: deleteTodo,
     onSuccess: () =>
@@ -27,7 +29,9 @@ const useDelete = () => {
       }),
   });
 };
+
 const useCancel = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: patchCancelTodo,
     onSuccess: () =>
