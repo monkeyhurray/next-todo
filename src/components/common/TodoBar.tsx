@@ -1,13 +1,17 @@
 import React from "react";
-import { Todo } from "@/app/types";
-import { useComplete, useDelete } from "@/components/mutaion/useMutation";
+import {
+  useDeleteMutation,
+  useToggleMutation,
+} from "@/components/hooks/useMutation";
+
+import type { Todo } from "@/types";
 
 const TodoBar = ({ todos }: { todos: Todo[] }) => {
-  const patchCompleteMutation = useComplete();
-  const deleteMutation = useDelete();
+  const patchCompleteMutation = useToggleMutation();
+  const deleteMutation = useDeleteMutation();
 
-  const onClickCompleteBtn = (id: string) => {
-    patchCompleteMutation.mutate(id);
+  const onClickCompleteBtn = (payload: Todo) => {
+    patchCompleteMutation.mutate(payload);
   };
 
   const onClickDeleteBtn = (id: string) => {
@@ -17,6 +21,12 @@ const TodoBar = ({ todos }: { todos: Todo[] }) => {
   return (
     <div className="mt-1 flex">
       {todosFilter.map((todo: Todo) => {
+        const payload = {
+          id: todo.id,
+          title: todo.title,
+          contents: todo.contents,
+          isDone: todo.isDone,
+        };
         return (
           <div
             className="mr-3 p-4 border-4 border-black rounded-lg"
@@ -26,7 +36,7 @@ const TodoBar = ({ todos }: { todos: Todo[] }) => {
             <li>내용:&nbsp;{todo.contents}</li>
             <button
               className="mr-1 bg-green-400 hover:bg-green-700 text-white font-bold py-0.9 px-6 border border-grey-700 rounded"
-              onClick={() => onClickCompleteBtn(todo.id)}
+              onClick={() => onClickCompleteBtn(payload)}
             >
               완료
             </button>

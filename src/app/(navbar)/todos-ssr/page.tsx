@@ -1,6 +1,8 @@
 import React from "react";
 import NavBarSsr from "@/components/common/NavBarSsr";
-import { Todo } from "@/app/types";
+
+import type { Todo } from "@/types";
+
 const SSRPage = async () => {
   const response = await fetch(`${process.env.NEXT_SERVER_URL}/todos`);
   const data = await response.json();

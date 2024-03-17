@@ -1,5 +1,5 @@
-import React from "react";
-import { Todo } from "@/app/types";
+import type { Todo } from "@/types";
+
 const ReportISRPage = async () => {
   const fetchTodos = await fetch(`${process.env.NEXT_SERVER_URL}/todos`, {
     next: {

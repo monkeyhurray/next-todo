@@ -1,5 +1,6 @@
 import axios from "axios";
-import { Todo } from "@/app/types";
+
+import type { Todo } from "@/types";
 
 const getTodo = async () => {
   const response = await axios.get(
@@ -18,20 +19,18 @@ const postTodo = async (newTodo: {
   });
 };
 
-const patchCancelTodo = async (id: string): Promise<void> => {
-  await axios.patch(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${id}`, {
-    isDone: false,
-  });
-};
-
-const patchCompleteTodo = async (id: string): Promise<void> => {
-  await axios.patch(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${id}`, {
-    isDone: true,
-  });
+const patchTodo = async (payload: Todo) => {
+  await axios.patch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${payload.id}`,
+    {
+      ...payload,
+      isDone: payload.isDone ? false : true,
+    }
+  );
 };
 
 const deleteTodo = async (id: string): Promise<void> => {
   await axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/todos/${id}`);
 };
 
-export { getTodo, postTodo, patchCompleteTodo, patchCancelTodo, deleteTodo };
+export { getTodo, postTodo, patchTodo, deleteTodo };

@@ -1,18 +1,17 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { getTodo, postTodo } from "@/todoApi/todosApi";
+import { useState } from "react";
+import { getTodo } from "@/todoApi/todosApi";
 import TodoBar from "@/components/common/TodoBar";
 import DoneBar from "@/components/common/DoneBar";
 import { queryKey } from "@/queryKey/queryKey";
-
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { usePostMutation } from "@/components/hooks/useMutation";
+import { useQuery } from "@tanstack/react-query";
 
 const CSRPage = () => {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [contents, setContent] = useState("");
-  const queryClient = useQueryClient();
 
   const {
     isLoading,
@@ -23,13 +22,7 @@ const CSRPage = () => {
     queryKey: [queryKey.todos],
   });
 
-  const postMutation = useMutation({
-    mutationFn: postTodo,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
-        queryKey: [queryKey.todos],
-      }),
-  });
+  const postMutation = usePostMutation();
 
   const onClickWriteBtn = () => {
     if (title.trim() !== "" && contents.trim() !== "") {
