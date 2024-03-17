@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { getTodo, postTodo } from "@/todoApi/todosApi";
-import TodoBar from "@/components/TodoBar";
-import DoneBar from "@/components/DoneBar";
+import TodoBar from "@/components/common/TodoBar";
+import DoneBar from "@/components/common/DoneBar";
 import { queryKey } from "@/queryKey/queryKey";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -19,8 +19,8 @@ const CSRPage = () => {
     isError,
     data: todos,
   } = useQuery({
-    queryKey: [queryKey.todos],
     queryFn: getTodo,
+    queryKey: [queryKey.todos],
   });
 
   const postMutation = useMutation({

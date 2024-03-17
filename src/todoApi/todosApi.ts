@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Todo } from "@/app/types";
-const getTodo = async (): Promise<Todo[]> => {
+
+const getTodo = async () => {
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/todos`
   );

@@ -9,13 +9,13 @@
       "id": "e00b",
       "title": "공부하기 ",
       "contents": "Node",
-      "isDone": false
+      "isDone": true
     },
     {
       "id": "e24b",
       "title": "금상호",
       "contents": "굴비",
-      "isDone": false
+      "isDone": true
     },
     {
       "id": "4931",
